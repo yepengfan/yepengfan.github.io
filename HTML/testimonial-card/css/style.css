@@ -30,3 +30,7 @@ body {
   color: #000;
   font-weight: bold;
 }
+
+.custom-gradient {
+  background: linear-gradient(148deg, #f9fafb 8.89%, #d2d6db 100.48%);
+}
