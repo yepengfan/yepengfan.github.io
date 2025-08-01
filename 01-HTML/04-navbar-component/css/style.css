@@ -28,3 +28,16 @@ body {
   color: #000;
   font-weight: bold;
 }
+
+#slideout-menu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  left: -100%; /* Ensure it is fully off-screen to the left. */
+  transition: left 0.3s ease-in-out;
+}
+
+#slideout-menu.open {
+  left: 0; /* Slide in */
+}
