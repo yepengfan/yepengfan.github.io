@@ -23,13 +23,59 @@
       /* You may write styles inside this <style> tag or within `css/style.css`. */
     </style>
   </head>
-  <body>
+  <body class="background">
     <!-- Add your site or application content here -->
     <button aria-label="Open mobile menu" id="mobile-menu-button">
       <span aria-hidden="true">☰</span>
     </button>
     <nav id="slideout-menu">
       <!-- Slideout menu content here -->
+      <div class="py-8 px-4 w-[327px] flex flex-col justify-start gap-6">
+        <div class="flex flex-row items-center gap-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M12.1434 22.7713H20.169L20.9239 25H11.3885L12.1434 22.7713ZM5.94191 24.9992L12.4544 7H6C4.89543 7 4 7.89543 4 9V23C4 24.0851 4.8642 24.9684 5.94191 24.9992ZM26.4163 24.9566C27.3211 24.765 28 23.9618 28 23V9C28 7.89543 27.1046 7 26 7H19.9192L26.4163 24.9566ZM16.1562 10.8554L18.8212 18.7278H13.5218L16.1562 10.8554Z"
+              fill="#6366F1"
+            />
+          </svg>
+          Abstractly
+        </div>
+        <ul class="flex flex-col gap-2 h-[580px]">
+          <li class="px-3 py-2">
+            <a href="#" class="text-neutral-900">Home</a>
+          </li>
+          <li class="px-3 py-2">
+            <a href="#" class="text-neutral-900">Features</a>
+          </li>
+          <li class="px-3 py-2">
+            <a href="#" class="text-neutral-900">Pricing</a>
+          </li>
+          <li class="px-3 py-2">
+            <a href="#" class="text-neutral-900">About us</a>
+          </li>
+          <li class="px-3 py-2">
+            <a href="#" class="text-neutral-900">Contact</a>
+          </li>
+        </ul>
+        <div class="flex flex-col gap-4 w-full">
+          <button class="text-neutral-900 shadow py-2.5 px-4 bg-white">
+            Learn more
+          </button>
+          <button
+            class="text-neutral-200 shadow py-2.5 px-4 bg-indigo-700 text-white"
+          >
+            Try it out
+          </button>
+        </div>
+      </div>
     </nav>
     <main>
       <!-- Main page content -->

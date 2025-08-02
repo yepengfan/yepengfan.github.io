@@ -31,13 +31,24 @@ body {
 
 #slideout-menu {
   position: fixed;
-  top: 0;
+  top: 20px;
   bottom: 0;
-  width: 300px;
-  left: -100%; /* Ensure it is fully off-screen to the left. */
-  transition: left 0.3s ease-in-out;
+  width: 327px;
+  transform: translateX(-100%); /* Ensure it is fully off-screen to the left. */
+  transition: transform 0.3s ease-in-out;
 }
 
 #slideout-menu.open {
-  left: 0; /* Slide in */
+  transform: translateX(0); /* Slide in */
+}
+
+.background {
+  background: linear-gradient(148deg, #f9fafb 8.89%, #d2d6db 100.48%);
+}
+
+@media (min-width: 768px) {
+  #slideout-menu,
+  #mobile-menu-button {
+    display: none; /* Hide on larger screens */
+  }
 }
