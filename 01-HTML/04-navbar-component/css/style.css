@@ -49,10 +49,3 @@ body {
 .hidden {
   display: none; /* Hide elements with this class */
 }
-
-@media (min-width: 768px) {
-  #slideout-menu,
-  #mobile-menu-button {
-    display: none; /* Hide on larger screens */
-  }
-}
