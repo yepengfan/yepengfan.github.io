@@ -31,7 +31,7 @@ body {
 
 #slideout-menu {
   position: fixed;
-  top: 20px;
+  top: 0px;
   bottom: 0;
   width: 327px;
   transform: translateX(-100%); /* Ensure it is fully off-screen to the left. */
