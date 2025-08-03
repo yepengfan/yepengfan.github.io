@@ -103,48 +103,70 @@
         </div>
       </div>
     </nav>
-    <nav id="menu-bar" class="pt-4 px-8 md:pt-4 md:px-28">
-      <div class="flex justify-between">
-        <div class="flex flex-row items-center gap-1">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
+    <nav
+      id="menu-bar"
+      class="flex flex-row items-center pt-4 px-8 md:pt-4 md:px-28 justify-between"
+    >
+      <div class="flex flex-row items-center gap-1">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12.1434 22.7713H20.169L20.9239 25H11.3885L12.1434 22.7713ZM5.94191 24.9992L12.4544 7H6C4.89543 7 4 7.89543 4 9V23C4 24.0851 4.8642 24.9684 5.94191 24.9992ZM26.4163 24.9566C27.3211 24.765 28 23.9618 28 23V9C28 7.89543 27.1046 7 26 7H19.9192L26.4163 24.9566ZM16.1562 10.8554L18.8212 18.7278H13.5218L16.1562 10.8554Z"
+            fill="#6366F1"
+          />
+        </svg>
+        Abstractly
+      </div>
+      <ul
+        class="hidden md:flex md:flex-row md:gap-8 md:items-center whitespace-nowrap"
+      >
+        <li>
+          <a href="#" class="text-neutral-600 text-base font-medium">Home</a>
+        </li>
+        <li>
+          <a href="#" class="text-neutral-600 text-base font-medium"
+            >Features</a
           >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M12.1434 22.7713H20.169L20.9239 25H11.3885L12.1434 22.7713ZM5.94191 24.9992L12.4544 7H6C4.89543 7 4 7.89543 4 9V23C4 24.0851 4.8642 24.9684 5.94191 24.9992ZM26.4163 24.9566C27.3211 24.765 28 23.9618 28 23V9C28 7.89543 27.1046 7 26 7H19.9192L26.4163 24.9566ZM16.1562 10.8554L18.8212 18.7278H13.5218L16.1562 10.8554Z"
-              fill="#6366F1"
-            />
-          </svg>
-          Abstractly
-        </div>
-        <button aria-label="Open mobile menu" id="mobile-menu-button">
-          <span aria-hidden="true">☰</span>
+        </li>
+        <li>
+          <a href="#" class="text-neutral-600 text-base font-medium">Pricing</a>
+        </li>
+        <li>
+          <a href="#" class="text-neutral-600 text-base font-medium"
+            >About us</a
+          >
+        </li>
+        <li>
+          <a href="#" class="text-neutral-600 text-base font-medium">Contact</a>
+        </li>
+      </ul>
+      <div class="hidden md:flex gap-4">
+        <button
+          class="text-neutral-900 shadow py-2.5 px-4 bg-white rounded whitespace-nowrap"
+        >
+          Learn more
+        </button>
+        <button
+          class="text-neutral-200 shadow py-2.5 px-4 bg-indigo-700 text-white rounded whitespace-nowrap"
+        >
+          See pricing
         </button>
       </div>
+      <button aria-label="Open mobile menu" id="mobile-menu-button">
+        <span aria-hidden="true">☰</span>
+      </button>
     </nav>
     <main>
       <!-- Main page content -->
     </main>
 
-    <!-- Attribute this challenge to yourself! -->
-    <div class="credits" data-gfe-screenshot-exclude="true">
-      A challenge by
-      <a
-        href="https://www.greatfrontend.com/projects?ref=challenges"
-        target="_blank"
-        >GreatFrontEnd Projects</a
-      >. Built by
-      <a
-        href="https://www.greatfrontend.com/projects/u/username"
-        target="_blank"
-        >Your Name</a
-      >.
-    </div>
     <script src="js/index.js"></script>
   </body>
 </html>
