@@ -46,6 +46,10 @@ body {
   background: linear-gradient(148deg, #f9fafb 8.89%, #d2d6db 100.48%);
 }
 
+.hidden {
+  display: none; /* Hide elements with this class */
+}
+
 @media (min-width: 768px) {
   #slideout-menu,
   #mobile-menu-button {
