@@ -16,16 +16,56 @@
     <!-- Tailwind CDN allows you to use Tailwind classes immediately in your HTML without any installation steps. 
       If you're not using Tailwind, you may delete the <script> -->
     <!-- Get started on Tailwind: https://tailwindcss.com/docs/installation/play-cdn -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com">
+      tailwind.config = {
+        theme: {
+          screens: {
+            sm: "375px",
+            md: "768px",
+          }
+        }
+
+      }
+    </script>
 
     <link rel="icon" href="img/favicon.ico" sizes="any" />
     <style>
       /* You may write styles inside this <style> tag or within `css/style.css`. */
     </style>
   </head>
-  <body class="py-2">
+  <body class="py-2 max-w-7xl mx-auto">
     <main class="h-[65px]"></main>
-    <footer class="py-24"></footer>
+    <footer class="px-4 md:p-24">
+      <div
+        class="newsletter flex flex-col items-center gap-8 md:flex-row md:justify-between"
+      >
+        <div
+          class="description flex flex-col gap-2 items-start self-stretch sm:whitespace-nowrap"
+        >
+          <h1 class="text-xl font-semibold text-neutral-900">
+            Join our newsletter
+          </h1>
+          <p class="text-base font-normal text-neutral-600">
+            We'll send you a nice letter once per week. No spam.
+          </p>
+        </div>
+        <div
+          class="w-full flex flex-col gap-4 sm:flex-row sm:self-stretch md:flex-row md:w-[356px]"
+        >
+          <input
+            class="w-full border rounded border-solid border-neutral-200 px-2.5 py-3.5 text-neutral-500 bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-neutral-300 md:w-[270px]"
+            type="email"
+            placeholder="Enter your email"
+          />
+          <button
+            type="submit"
+            class="px-3.5 py-2.5 bg-indigo-700 text-white rounded hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            Subscribe
+          </button>
+        </div>
+      </div>
+    </footer>
     <script src="js/index.js"></script>
   </body>
 </html>
