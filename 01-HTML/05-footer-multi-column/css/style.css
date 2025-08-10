@@ -25,3 +25,32 @@ body {
   color: #000;
   font-weight: bold;
 }
+
+.success-status {
+  border-radius: 9px;
+  padding: 2px 10px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.success-message {
+  display: flex;
+  flex-direction: row;
+  padding: 4px 10px 4px 4px;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  color: #15803d;
+}
+
+.success-notification {
+  background-color: #f0fdf4;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
