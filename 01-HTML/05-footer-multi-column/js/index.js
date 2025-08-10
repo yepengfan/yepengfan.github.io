@@ -39,17 +39,18 @@ function showToast(status, message) {
   toastMessage.classList.add("success-message");
   toast.classList.add("success-notification");
 
-  // Show the toast
+  // Show the toast - positioned at top center
   toast.style.display = "flex";
   toast.style.position = "fixed";
   toast.style.top = "20px";
-  toast.style.right = "20px";
+  toast.style.left = "50%";
+  toast.style.transform = "translateX(-50%)";
   toast.style.zIndex = "1000";
 
   // Auto-hide after 3 seconds
-  // setTimeout(() => {
-  //   toast.style.display = "none";
-  // }, 3000);
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 3000);
 }
 
 // Optional: Click to dismiss toast
