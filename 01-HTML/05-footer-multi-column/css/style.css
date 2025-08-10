@@ -25,23 +25,3 @@ body {
   color: #000;
   font-weight: bold;
 }
-
-.logo-section {
-  grid-column: span 4 / span 4;
-}
-
-@media (min-width: 768px) {
-  .logo-section {
-    grid-column: span 6 / span 6;
-  }
-}
-
-.links-section {
-  grid-column: span 4 / span 4;
-}
-
-@media (min-width: 768px) {
-  .links-section {
-    grid-column: span 3 / span 3;
-  }
-}
