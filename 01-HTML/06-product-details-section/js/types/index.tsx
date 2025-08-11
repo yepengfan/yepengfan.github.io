@@ -21,5 +21,8 @@ export interface Inventory {
 export interface ProductInfoProps {
   name: string;
   description: string;
+  rating: number;
+  reviews: number;
+  colors: string[];
   inventory: Inventory[];
 }

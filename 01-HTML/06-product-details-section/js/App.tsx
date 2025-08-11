@@ -9,6 +9,9 @@ function App() {
       <ProductImages images={data.images} />
       <ProductInfo
         name={data.name}
+        rating={data.rating}
+        reviews={data.reviews}
+        colors={data.colors}
         description={data.description}
         inventory={data.inventory}
       />
