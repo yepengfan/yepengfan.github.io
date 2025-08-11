@@ -34,7 +34,7 @@ export default function ProductImages({ images }: ProductImagesProps) {
           <button
             key={image.image_url}
             type="button"
-            className="p-0 border-none bg-transparent rounded-lg h-[80px] w-[80px] focus:outline-none transition-transform duration-200 hover:scale-110 active:scale-95"
+            className="p-0 border-none bg-transparent rounded-lg h-full w-[80px] flex-shrink-0 block"
             onClick={() => handleImageChange(image.image_url)}
             aria-label="Show product image"
           >
