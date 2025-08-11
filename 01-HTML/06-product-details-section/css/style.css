@@ -25,3 +25,34 @@ body {
   color: #000;
   font-weight: bold;
 }
+
+/* Add to your CSS file */
+@keyframes imageSlideIn {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes imageSlideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+}
+
+.image-enter {
+  animation: imageSlideIn 0.3s ease-out;
+}
+
+.image-exit {
+  animation: imageSlideOut 0.3s ease-out;
+}
