@@ -135,10 +135,10 @@ export default function ProductInfo(props: ProductInfoProps) {
           <div className="flex flex-col gap-2">
             <div className="flex flex-row items-end">
               <h2 className="text-3xl font-medium pr-[8px]">
-                {props.inventory[0].sale_price}
+                ${props.inventory[0].sale_price}
               </h2>
               <h3 className="line-through text-lg font-medium text-neutral-400">
-                {props.inventory[0].list_price}
+                ${props.inventory[0].list_price}
               </h3>
             </div>
             <div>
