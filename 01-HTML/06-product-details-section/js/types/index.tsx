@@ -24,5 +24,9 @@ export interface ProductInfoProps {
   rating: number;
   reviews: number;
   colors: string[];
+  info: {
+    title: string;
+    description: string[];
+  }[];
   inventory: Inventory[];
 }

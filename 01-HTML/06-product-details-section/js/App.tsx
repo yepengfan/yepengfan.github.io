@@ -13,6 +13,7 @@ function App() {
         reviews={data.reviews}
         colors={data.colors}
         description={data.description}
+        info={data.info}
         inventory={data.inventory}
       />
     </div>

@@ -6,6 +6,9 @@ import ColorSwatch from "./ColorSwatch";
 export default function ProductInfo(props: ProductInfoProps) {
   const [selectedColor, setSelectedColor] = useState(props.colors[0]);
   const [quantity, setQuantity] = useState(1);
+  const [infoToggle, setInfoToggle] = useState(
+    new Array(props.info.length).fill(false)
+  );
 
   const { colors } = props || [];
   const sizes = [...new Set(props.inventory.map((item) => item.size))];
@@ -123,13 +126,71 @@ export default function ProductInfo(props: ProductInfoProps) {
           </div>
         </div>
       </div>
-      <ul>
-        {props.inventory.map((item) => (
-          <li key={item.sku}>
-            {item.color} - {item.size} - {item.list_price}
-          </li>
-        ))}
-      </ul>
+      <div className="flex flex-col gap-10">
+        <button className="w-full bg-indigo-700 rounded px-5 py-3 text-white">
+          Add to Cart
+        </button>
+        <div className="flex flex-col">
+          <ul className="flex flex-col gap-8 divide-y">
+            {props.info.map((item, index) => (
+              <li key={index} className="flex flex-col pt-6 first:pt-0">
+                <div className="flex text-lg font-medium justify-between gap-6">
+                  <div>
+                    <p>{item.title}</p>
+                    {infoToggle[index] && (
+                      <div>
+                        <ul className="text-base font-normal list-disc pl-5">
+                          {item.description.map((desc, index) => (
+                            <li key={index}>{desc}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                  {
+                    <button
+                      className="flex self-start"
+                      onClick={() => {
+                        const newInfoToggle = [...infoToggle];
+                        newInfoToggle[index] = !newInfoToggle[index];
+                        setInfoToggle(newInfoToggle);
+                      }}
+                    >
+                      {infoToggle[index] ? (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="25"
+                          viewBox="0 0 24 25"
+                          fill="none"
+                        >
+                          <path
+                            d="M12 22.6666C6.47715 22.6666 2 18.1894 2 12.6666C2 7.14378 6.47715 2.66663 12 2.66663C17.5228 2.66663 22 7.14378 22 12.6666C22 18.1894 17.5228 22.6666 12 22.6666ZM12 20.6666C16.4183 20.6666 20 17.0849 20 12.6666C20 8.24835 16.4183 4.66663 12 4.66663C7.58172 4.66663 4 8.24835 4 12.6666C4 17.0849 7.58172 20.6666 12 20.6666ZM7 11.6666H17V13.6666H7V11.6666Z"
+                            fill="#A3A3A3"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="25"
+                          viewBox="0 0 24 25"
+                          fill="none"
+                        >
+                          <path
+                            d="M11 11.6666V7.66663H13V11.6666H17V13.6666H13V17.6666H11V13.6666H7V11.6666H11ZM12 22.6666C6.47715 22.6666 2 18.1894 2 12.6666C2 7.14378 6.47715 2.66663 12 2.66663C17.5228 2.66663 22 7.14378 22 12.6666C22 18.1894 17.5228 22.6666 12 22.6666ZM12 20.6666C16.4183 20.6666 20 17.0849 20 12.6666C20 8.24835 16.4183 4.66663 12 4.66663C7.58172 4.66663 4 8.24835 4 12.6666C4 17.0849 7.58172 20.6666 12 20.6666Z"
+                            fill="#A3A3A3"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                  }
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
