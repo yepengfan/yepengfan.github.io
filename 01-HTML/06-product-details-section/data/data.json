@@ -77,7 +77,7 @@
       "discount_percentage": 20,
       "sale_price": 76,
       "sold": 85,
-      "stock": 415
+      "stock": 15
     },
     {
       "sku": "vh-green-sm",
@@ -88,7 +88,7 @@
       "discount_percentage": 20,
       "sale_price": 76,
       "sold": 80,
-      "stock": 420
+      "stock": 20
     },
     {
       "sku": "vh-green-md",
@@ -99,7 +99,7 @@
       "discount_percentage": 20,
       "sale_price": 76,
       "sold": 75,
-      "stock": 425
+      "stock": 25
     },
     {
       "sku": "vh-green-lg",
@@ -110,7 +110,7 @@
       "discount_percentage": 20,
       "sale_price": 76,
       "sold": 70,
-      "stock": 430
+      "stock": 30
     },
     {
       "sku": "vh-green-xl",
@@ -121,7 +121,7 @@
       "discount_percentage": 20,
       "sale_price": 76,
       "sold": 65,
-      "stock": 435
+      "stock": 35
     },
     {
       "sku": "vh-brown-xs",
@@ -132,7 +132,7 @@
       "discount_percentage": 20,
       "sale_price": 76,
       "sold": 85,
-      "stock": 415
+      "stock": 15
     },
     {
       "sku": "vh-brown-sm",
@@ -143,7 +143,7 @@
       "discount_percentage": 20,
       "sale_price": 76,
       "sold": 80,
-      "stock": 420
+      "stock": 20
     },
     {
       "sku": "vh-brown-md",
@@ -154,7 +154,7 @@
       "discount_percentage": 20,
       "sale_price": 76,
       "sold": 75,
-      "stock": 425
+      "stock": 25
     },
     {
       "sku": "vh-brown-lg",
@@ -165,7 +165,7 @@
       "discount_percentage": 20,
       "sale_price": 76,
       "sold": 70,
-      "stock": 430
+      "stock": 30
     },
     {
       "sku": "vh-brown-xl",
@@ -176,7 +176,7 @@
       "discount_percentage": 20,
       "sale_price": 76,
       "sold": 65,
-      "stock": 435
+      "stock": 35
     }
   ],
   "priceRange": {

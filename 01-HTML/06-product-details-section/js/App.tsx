@@ -12,6 +12,7 @@ function App() {
         rating={data.rating}
         reviews={data.reviews}
         colors={data.colors}
+        sizes={data.sizes}
         description={data.description}
         info={data.info}
         inventory={data.inventory}

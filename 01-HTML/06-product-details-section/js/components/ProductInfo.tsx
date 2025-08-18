@@ -5,6 +5,7 @@ import ColorSwatch from "./ColorSwatch";
 
 export default function ProductInfo(props: ProductInfoProps) {
   const [selectedColor, setSelectedColor] = useState(props.colors[0]);
+  const [selectedSize, setSelectedSize] = useState(props.sizes[0]);
   const [quantity, setQuantity] = useState(1);
   const [infoToggle, setInfoToggle] = useState(
     new Array(props.info.length).fill(false)
@@ -12,6 +13,11 @@ export default function ProductInfo(props: ProductInfoProps) {
 
   const { colors } = props || [];
   const sizes = [...new Set(props.inventory.map((item) => item.size))];
+  const maxQuantity =
+    props.inventory.find(
+      (item) => item.color === selectedColor && item.size === selectedSize
+    )?.stock || 0;
+  const isAtMaxQuantity = quantity >= maxQuantity;
 
   function handleColorClick(color: string) {
     setSelectedColor(color);
@@ -73,8 +79,13 @@ export default function ProductInfo(props: ProductInfoProps) {
           <div className="flex gap-4 overflow-x-auto">
             {sizes.map((size) => (
               <div
-                className="border border-neutral-200 rounded py-[12px] px-[20px] uppercase"
+                className={`border rounded py-[12px] px-[20px] uppercase ${
+                  selectedSize === size
+                    ? "border-indigo-700"
+                    : "border-neutral-200"
+                }`}
                 key={size}
+                onClick={() => setSelectedSize(size)}
               >
                 <h4>{size}</h4>
               </div>
@@ -108,21 +119,29 @@ export default function ProductInfo(props: ProductInfoProps) {
             <p className="w-[49px] h-[32px] px-3 py-1.5 flex items-center justify-center text-sm font-medium">
               {quantity}
             </p>{" "}
-            <button onClick={() => setQuantity((quantity) => quantity + 1)}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="17"
-                viewBox="0 0 18 17"
-                fill="none"
-                className="p-[1.67px]"
+            <div className={isAtMaxQuantity ? "tooltip" : ""}>
+              <button
+                disabled={isAtMaxQuantity}
+                onClick={() => setQuantity((quantity) => quantity + 1)}
               >
-                <path
-                  d="M8.30546 7.9721V3.80544H9.69435V7.9721H13.861V9.36099H9.69435V13.5277H8.30546V9.36099H4.13879V7.9721H8.30546Z"
-                  fill="#525252"
-                />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="17"
+                  viewBox="0 0 18 17"
+                  fill="none"
+                  className="p-[1.67px]"
+                >
+                  <path
+                    d="M8.30546 7.9721V3.80544H9.69435V7.9721H13.861V9.36099H9.69435V13.5277H8.30546V9.36099H4.13879V7.9721H8.30546Z"
+                    fill="#525252"
+                  />
+                </svg>
+              </button>
+              {isAtMaxQuantity && (
+                <span className="tooltiptext">insufficient stock</span>
+              )}
+            </div>
           </div>
         </div>
       </div>

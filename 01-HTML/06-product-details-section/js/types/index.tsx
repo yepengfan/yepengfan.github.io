@@ -24,6 +24,7 @@ export interface ProductInfoProps {
   rating: number;
   reviews: number;
   colors: string[];
+  sizes: string[];
   info: {
     title: string;
     description: string[];
