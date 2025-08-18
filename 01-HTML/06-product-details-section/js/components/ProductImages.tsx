@@ -25,7 +25,7 @@ export default function ProductImages({ images }: ProductImagesProps) {
       <img
         id="main-image"
         src={mainImage}
-        className={`rounded-lg h-[400px] w-full object-cover ${animationClass}`}
+        className={`rounded-lg h-[400px] w-full object-cover ${animationClass} md:h-[800px]`}
         alt="Product"
       />
 
@@ -34,7 +34,7 @@ export default function ProductImages({ images }: ProductImagesProps) {
           <button
             key={image.image_url}
             type="button"
-            className="p-0 border-none bg-transparent rounded-lg h-full w-[80px] flex-shrink-0 block"
+            className="p-0 border-none bg-transparent rounded-lg h-full w-[80px] flex-shrink-0 block md:w-[188px] md:h-[190px]"
             onClick={() => handleImageChange(image.image_url)}
             aria-label="Show product image"
           >

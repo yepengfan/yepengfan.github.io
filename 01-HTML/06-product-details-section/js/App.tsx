@@ -5,7 +5,7 @@ import data from "../data/data.json";
 
 function App() {
   return (
-    <div className="py-12 px-4 flex flex-col gap-12">
+    <div className="mx-auto py-12 px-4 flex flex-col gap-12 w-[375px] md:w-[768px]">
       <ProductImages images={data.images} />
       <ProductInfo
         name={data.name}
