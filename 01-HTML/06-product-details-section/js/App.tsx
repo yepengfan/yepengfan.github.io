@@ -1,4 +1,3 @@
-import React from "react";
 import ProductImages from "./components/ProductImages";
 import ProductInfo from "./components/ProductInfo";
 import data from "../data/data.json";

@@ -5,7 +5,8 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   base: "/01-HTML/06-product-details-section/",
-  esbuild: {
-    logOverride: { "this-is-undefined-in-esm": "silent" },
+  build: {
+    outDir: "dist",
+    assetsDir: "assets",
   },
 });
