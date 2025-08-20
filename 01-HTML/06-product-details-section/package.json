@@ -1,10 +1,13 @@
 {
   "name": "06-product-details-section",
   "version": "1.0.0",
+  "homepage": "https://yepengfan.github.io/01-HTML/06-product-details-section/",
   "type": "module",
   "description": "<!-- Use Ctrl/Cmd + Shift + V in VS Code to preview this Markdown file. -->",
   "main": "index.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
@@ -22,6 +25,7 @@
     "@types/react": "^18.3.23",
     "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "^5.0.0",
+    "gh-pages": "^6.3.0",
     "typescript": "^5.9.2",
     "vite": "^7.1.1"
   }
