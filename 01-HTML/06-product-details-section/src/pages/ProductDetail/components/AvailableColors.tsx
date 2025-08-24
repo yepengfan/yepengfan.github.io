@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 
-import ColorSwatches from "../../../../src/components/ColorSwatches";
+import ColorSwatches from "src/components/ColorSwatches";
 import { useProductDetailsContext } from "./ProductDetailsContext";
-import { COLORS } from "../../../../src/constants";
+import { COLORS } from "src/constants";
 import { getUnavailableColors } from "../utils";
 
 const AvailableColors = () => {
