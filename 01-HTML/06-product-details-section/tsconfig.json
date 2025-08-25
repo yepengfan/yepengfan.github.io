@@ -13,11 +13,6 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "baseUrl": "./",
-    "paths": {
-      "src/*": ["src/*"],
-      "data/*": ["data/*"]
-    },
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src", "data"],
