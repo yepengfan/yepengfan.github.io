@@ -14,9 +14,9 @@
       --border:  #d2d2d7;
       --accent:  #0071e3;
 
-      /* derived — do not change */
-      --accent-soft: color-mix(in oklch, var(--accent) 14%, transparent);
-      --fg-soft:     color-mix(in oklch, var(--fg) 6%, transparent);
+      /* derived — fallback for browsers without color-mix(), overridden below when supported */
+      --accent-soft: rgba(0, 113, 227, 0.14);
+      --fg-soft:     rgba(29, 29, 31, 0.06);
 
       /* type — Apple: SF Pro Display for headings, SF Pro Text for body */
       --font-display: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -41,6 +41,13 @@
 
       --radius: 12px;
       --radius-lg: 18px;
+    }
+
+    @supports (background: color-mix(in oklch, red, transparent)) {
+      :root {
+        --accent-soft: color-mix(in oklch, var(--accent) 14%, transparent);
+        --fg-soft:     color-mix(in oklch, var(--fg) 6%, transparent);
+      }
     }
 
     /* ─── reset & base ──────────────────────────────────────────────── */
@@ -104,9 +111,12 @@
     /* ─── chrome: nav + footer ──────────────────────────────────────── */
     .topnav {
       position: sticky; top: 0; z-index: 10;
-      background: color-mix(in oklch, var(--bg) 92%, transparent);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
+    }
+    @supports (background: color-mix(in oklch, red, transparent)) {
+      .topnav { background: color-mix(in oklch, var(--bg) 92%, transparent); }
     }
     .topnav-inner { display: flex; align-items: center; justify-content: space-between; padding-block: 14px; }
     .topnav .logo { font-family: var(--font-display); font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
@@ -231,10 +241,11 @@
     .hero .lead    { margin-bottom: var(--gap-lg); margin-inline: auto; }
     .hero-cta      { display: inline-flex; gap: var(--gap-sm); flex-wrap: wrap; justify-content: center; }
 
-    /* ─── mobile: collapse nav links, tighten gutters ────────────────── */
+    /* ─── mobile: wrap nav links onto their own row, tighten gutters ─── */
     @media (max-width: 640px) {
       :root { --gutter: 20px; }
-      .topnav nav { display: none; }
+      .topnav-inner { flex-wrap: wrap; row-gap: 8px; }
+      .topnav nav { order: 3; width: 100%; justify-content: center; gap: var(--gap-md); }
     }
   </style>
 </head>
@@ -247,7 +258,7 @@
         <a href="#why-feather">Why Feather</a>
         <a href="#contact">Contact</a>
       </nav>
-      <button class="btn btn-secondary" onclick="window.scrollTo({top: document.getElementById('contact').offsetTop - 70, behavior: 'smooth'})">Contact to Order</button>
+      <button class="btn btn-secondary" onclick="scrollToSection('contact')">Contact to Order</button>
     </div>
   </header>
 
@@ -260,8 +271,8 @@
         <h1>Tournament-grade feathers.</h1>
         <p class="lead">Two shuttlecock lines, delivered to your court — from club training to competitive play. Reach out directly to place an order; we currently sell two SKUs.</p>
         <div class="hero-cta">
-          <button class="btn btn-primary" onclick="window.scrollTo({top: document.getElementById('contact').offsetTop - 70, behavior: 'smooth'})">Contact to Order</button>
-          <button class="btn btn-secondary" onclick="window.scrollTo({top: document.getElementById('products').offsetTop - 70, behavior: 'smooth'})">View Products</button>
+          <button class="btn btn-primary" onclick="scrollToSection('contact')">Contact to Order</button>
+          <button class="btn btn-secondary" onclick="scrollToSection('products')">View Products</button>
         </div>
       </div>
     </section>
@@ -281,7 +292,7 @@
 
           <!-- SKU 1 -->
           <article class="card stack" style="gap: 20px;" data-od-id="sku-tournament">
-            <div class="ph-img square" aria-label="Product photo placeholder">[ Product photo · Tournament Pro ]</div>
+            <div class="ph-img square" role="img" aria-label="Product photo placeholder">[ Product photo · Tournament Pro ]</div>
             <div>
               <h3>Tournament Pro — Goose Feather</h3>
               <p class="meta" style="margin-top: 4px;">SKU-001</p>
@@ -293,12 +304,12 @@
               <div class="spec-row"><span class="label">Best for</span><span class="value">Competitive match play</span></div>
               <div class="spec-row"><span class="label">Price</span><span class="value num">$— / tube</span></div>
             </div>
-            <button class="btn btn-secondary" style="align-self: flex-start;" onclick="window.scrollTo({top: document.getElementById('contact').offsetTop - 70, behavior: 'smooth'})">Inquire to order</button>
+            <button class="btn btn-secondary" style="align-self: flex-start;" onclick="scrollToSection('contact')">Inquire to order</button>
           </article>
 
           <!-- SKU 2 -->
           <article class="card stack" style="gap: 20px;" data-od-id="sku-training">
-            <div class="ph-img square" aria-label="Product photo placeholder">[ Product photo · Club Training ]</div>
+            <div class="ph-img square" role="img" aria-label="Product photo placeholder">[ Product photo · Club Training ]</div>
             <div>
               <h3>Club Training — Duck Feather</h3>
               <p class="meta" style="margin-top: 4px;">SKU-002</p>
@@ -310,7 +321,7 @@
               <div class="spec-row"><span class="label">Best for</span><span class="value">Practice &amp; club sessions</span></div>
               <div class="spec-row"><span class="label">Price</span><span class="value num">$— / tube</span></div>
             </div>
-            <button class="btn btn-secondary" style="align-self: flex-start;" onclick="window.scrollTo({top: document.getElementById('contact').offsetTop - 70, behavior: 'smooth'})">Inquire to order</button>
+            <button class="btn btn-secondary" style="align-self: flex-start;" onclick="scrollToSection('contact')">Inquire to order</button>
           </article>
 
         </div>
@@ -327,21 +338,21 @@
         <div class="grid-3">
           <div class="feature card-flat">
             <div class="feature-mark">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
             </div>
             <h3>Hand-graded feathers</h3>
             <p>Every shuttlecock is checked for shape and weight consistency before it ships.</p>
           </div>
           <div class="feature card-flat">
             <div class="feature-mark">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h13M12 5l7 7-7 7"/></svg>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h13M12 5l7 7-7 7"/></svg>
             </div>
             <h3>Direct from us to you</h3>
             <p>No middleman markup — order by phone, email, or WeChat and we confirm details directly.</p>
           </div>
           <div class="feature card-flat">
             <div class="feature-mark">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h10M4 17h16"/></svg>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h10M4 17h16"/></svg>
             </div>
             <h3>Club &amp; bulk pricing</h3>
             <p>Ordering for a team or club? Ask us about volume pricing when you get in touch.</p>
@@ -362,7 +373,7 @@
         <div class="grid-3">
           <div class="card contact-card" data-od-id="contact-phone">
             <div class="channel-mark">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg>
             </div>
             <h3>Call us</h3>
             <p class="value" id="phone-value">[ +1 555 0100 ]</p>
@@ -375,7 +386,7 @@
 
           <div class="card contact-card" data-od-id="contact-email">
             <div class="channel-mark">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h16v14H4z"/><path d="M4 6l8 7 8-7"/></svg>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h16v14H4z"/><path d="M4 6l8 7 8-7"/></svg>
             </div>
             <h3>Email us</h3>
             <p class="value" id="email-value">[ orders@feather-shop.com ]</p>
@@ -388,10 +399,10 @@
 
           <div class="card contact-card" data-od-id="contact-wechat">
             <div class="channel-mark">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="10" r="6"/><path d="M15 14c3.3 0 6 2.1 6 4.6 0 1-.5 1.9-1.4 2.6l.4 1.8-2-1a7.4 7.4 0 0 1-3 .6"/></svg>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="10" r="6"/><path d="M15 14c3.3 0 6 2.1 6 4.6 0 1-.5 1.9-1.4 2.6l.4 1.8-2-1a7.4 7.4 0 0 1-3 .6"/></svg>
             </div>
             <h3>WeChat</h3>
-            <div class="ph-img square" style="max-width: 140px; margin: 0 auto;" aria-label="WeChat QR code placeholder">[ QR code placeholder ]</div>
+            <div class="ph-img square" style="max-width: 140px; margin: 0 auto;" role="img" aria-label="WeChat QR code placeholder">[ QR code placeholder ]</div>
             <p class="value" style="margin-bottom: 0;">[ WeChat ID: feather_official ]</p>
           </div>
         </div>
@@ -408,6 +419,10 @@
   </footer>
 
   <script>
+    function scrollToSection(id) {
+      window.scrollTo({ top: document.getElementById(id).offsetTop - 70, behavior: 'smooth' });
+    }
+
     function copyValue(sourceId, noteId) {
       var raw = document.getElementById(sourceId).textContent.trim();
       var clean = raw.replace(/^\[\s*/, '').replace(/\s*\]$/, '');
