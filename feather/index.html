@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FEATHER — Premium Shuttlecocks</title>
+  <style>
+    /* ─── tokens — bound to the active Apple design system ────────────── */
+    :root {
+      --bg:      #ffffff;
+      --surface: #f5f5f7;
+      --fg:      #1d1d1f;
+      --muted:   #6e6e73;
+      --border:  #d2d2d7;
+      --accent:  #0071e3;
+
+      /* derived — fallback for browsers without color-mix(), overridden below when supported */
+      --accent-soft: rgba(0, 113, 227, 0.14);
+      --fg-soft:     rgba(29, 29, 31, 0.06);
+
+      /* type — Apple: SF Pro Display for headings, SF Pro Text for body */
+      --font-display: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-body:    'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-mono:    'SF Mono', ui-monospace, 'JetBrains Mono', Menlo, Monaco, Consolas, monospace;
+
+      --fs-h1: clamp(44px, 6vw, 72px);
+      --fs-h2: clamp(30px, 4vw, 44px);
+      --fs-h3: 22px;
+      --fs-lead: 21px;
+      --fs-body: 17px;
+      --fs-meta: 13px;
+
+      --gap-xs: 8px;
+      --gap-sm: 12px;
+      --gap-md: 20px;
+      --gap-lg: 32px;
+      --gap-xl: 56px;
+      --gap-2xl: 96px;
+      --container: 1120px;
+      --gutter: 32px;
+
+      --radius: 12px;
+      --radius-lg: 18px;
+    }
+
+    @supports (background: color-mix(in oklch, red, transparent)) {
+      :root {
+        --accent-soft: color-mix(in oklch, var(--accent) 14%, transparent);
+        --fg-soft:     color-mix(in oklch, var(--fg) 6%, transparent);
+      }
+    }
+
+    /* ─── reset & base ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
+      line-height: 1.47;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    p { text-wrap: pretty; }
+    h1, h2, h3, h4 { text-wrap: balance; }
+
+    /* ─── layout primitives ─────────────────────────────────────────── */
+    .container {
+      max-width: var(--container);
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+    .section {
+      padding-block: clamp(48px, 8vw, var(--gap-2xl));
+    }
+    .section + .section { border-top: 1px solid var(--border); }
+    .stack { display: flex; flex-direction: column; }
+    .stack > * + * { margin-top: var(--gap-md); }
+    .row { display: flex; align-items: center; gap: var(--gap-md); }
+    .row-between { display: flex; align-items: center; justify-content: space-between; gap: var(--gap-md); }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap-lg); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap-lg); }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap-md); }
+    .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: var(--gap-xl); align-items: start; }
+    .grid-1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: var(--gap-xl); align-items: start; }
+    @media (max-width: 920px) {
+      .grid-2, .grid-3, .grid-4, .grid-2-1, .grid-1-2 { grid-template-columns: 1fr; }
+    }
+
+    /* ─── type ──────────────────────────────────────────────────────── */
+    .h1, h1 { font-family: var(--font-display); font-size: var(--fs-h1); line-height: 1.04; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+    .h2, h2 { font-family: var(--font-display); font-size: var(--fs-h2); line-height: 1.1; letter-spacing: -0.015em; margin: 0; font-weight: 600; }
+    .h3, h3 { font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 600; line-height: 1.3; letter-spacing: -0.005em; margin: 0; }
+    .lead   { font-size: var(--fs-lead); line-height: 1.47; color: var(--muted); max-width: 60ch; margin: 0; }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 var(--gap-md);
+    }
+    .meta { font-family: var(--font-mono); font-size: var(--fs-meta); color: var(--muted); }
+    .num  { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+    /* ─── chrome: nav + footer ──────────────────────────────────────── */
+    .topnav {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    @supports (background: color-mix(in oklch, red, transparent)) {
+      .topnav { background: color-mix(in oklch, var(--bg) 92%, transparent); }
+    }
+    .topnav-inner { display: flex; align-items: center; justify-content: space-between; padding-block: 14px; }
+    .topnav .logo { font-family: var(--font-display); font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+    .topnav nav { display: flex; gap: var(--gap-lg); }
+    .topnav nav a { font-size: 14px; color: var(--muted); }
+    .topnav nav a:hover { color: var(--fg); }
+    .pagefoot { padding-block: var(--gap-xl); color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+    .pagefoot .row-between { flex-wrap: wrap; gap: var(--gap-md); }
+
+    /* ─── buttons ───────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 20px;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      transition: transform 0.05s ease, background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+    .btn-primary:hover { background: color-mix(in oklch, var(--accent) 88%, black); }
+    .btn-secondary { background: transparent; color: var(--fg); border-color: var(--border); }
+    .btn-secondary:hover { border-color: var(--fg); }
+    .btn-dark { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+    .btn-dark:hover { opacity: 0.85; }
+    .btn-ghost { background: transparent; color: var(--fg); border-color: transparent; padding-inline: 8px; }
+    .btn-ghost:hover { color: var(--accent); }
+    .btn-arrow::after { content: '→'; transition: transform 0.15s ease; }
+    .btn-arrow:hover::after { transform: translateX(2px); }
+
+    /* ─── card / surface ────────────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+    .card-flat { background: transparent; border: 0; padding: 0; }
+
+    /* ─── feature cell (icon + h3 + p) ──────────────────────────────── */
+    .feature .feature-mark {
+      width: 36px; height: 36px;
+      display: grid; place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--fg);
+      margin-bottom: var(--gap-md);
+    }
+    .feature .feature-mark svg { width: 18px; height: 18px; }
+    .feature h3 { margin-bottom: 6px; }
+    .feature p  { margin: 0; color: var(--muted); font-size: 15px; }
+
+    /* ─── pill / badge / tag ────────────────────────────────────────── */
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .tag {
+      display: inline-flex; align-items: center;
+      padding: 4px 10px;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 12px;
+    }
+
+    /* ─── image placeholder (DS-tinted block, never broken <img>) ──── */
+    .ph-img {
+      background:
+        linear-gradient(135deg, var(--accent-soft), var(--fg-soft)),
+        var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      aspect-ratio: 16 / 10;
+      display: grid; place-items: center;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-align: center;
+      padding: 12px;
+    }
+    .ph-img.square { aspect-ratio: 1 / 1; }
+
+    /* ─── spec row (label / value pair inside a card) ───────────────── */
+    .spec-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--gap-md); padding-block: 10px; border-top: 1px solid var(--border); }
+    .spec-row:first-of-type { border-top: 0; }
+    .spec-row .label { color: var(--muted); font-size: 14px; }
+    .spec-row .value { font-family: var(--font-mono); font-size: 14px; text-align: right; }
+
+    /* ─── contact channel card ───────────────────────────────────────── */
+    .contact-card { text-align: center; }
+    .contact-card .channel-mark {
+      width: 44px; height: 44px;
+      margin: 0 auto var(--gap-md);
+      display: grid; place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--fg);
+    }
+    .contact-card .channel-mark svg { width: 20px; height: 20px; }
+    .contact-card .value { font-family: var(--font-mono); font-size: 15px; margin: var(--gap-sm) 0 var(--gap-md); }
+    .copy-note { font-size: 12px; color: var(--fg); margin-top: 8px; min-height: 14px; }
+
+    /* ─── divider ───────────────────────────────────────────────────── */
+    .rule  { border: 0; border-top: 1px solid var(--border); margin: 0; }
+
+    /* ─── hero ────────────────────────────────────────────────────────  */
+    .hero          { padding-block: clamp(72px, 11vw, 140px); }
+    .hero-center   { text-align: center; margin-inline: auto; }
+    .hero h1       { margin-bottom: var(--gap-md); }
+    .hero .lead    { margin-bottom: var(--gap-lg); margin-inline: auto; }
+    .hero-cta      { display: inline-flex; gap: var(--gap-sm); flex-wrap: wrap; justify-content: center; }
+
+    /* ─── mobile: wrap nav links onto their own row, tighten gutters ─── */
+    @media (max-width: 640px) {
+      :root { --gutter: 20px; }
+      .topnav-inner { flex-wrap: wrap; row-gap: 8px; }
+      .topnav nav { order: 3; width: 100%; justify-content: center; gap: var(--gap-md); }
+    }
+  </style>
+</head>
+<body>
+  <header class="topnav" data-od-id="topnav">
+    <div class="container topnav-inner">
+      <span class="logo">FEATHER</span>
+      <nav>
+        <a href="#products">Products</a>
+        <a href="#why-feather">Why Feather</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="btn btn-secondary" onclick="scrollToSection('contact')">Contact to Order</button>
+    </div>
+  </header>
+
+  <main id="content">
+
+    <!-- Hero -->
+    <section class="section hero" data-od-id="hero">
+      <div class="container hero-center">
+        <p class="eyebrow">Premium Shuttlecocks</p>
+        <h1>Tournament-grade feathers.</h1>
+        <p class="lead">Two shuttlecock lines, delivered to your court — from club training to competitive play. Reach out directly to place an order; we currently sell two SKUs.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" onclick="scrollToSection('contact')">Contact to Order</button>
+          <button class="btn btn-secondary" onclick="scrollToSection('products')">View Products</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products — 2 SKU comparison -->
+    <section class="section" id="products" data-od-id="products">
+      <div class="container stack" style="gap: 40px;">
+        <div class="row-between" style="align-items: flex-end; flex-wrap: wrap; gap: 16px;">
+          <div style="max-width: 44ch;">
+            <p class="eyebrow" style="color: var(--muted);">Our Range</p>
+            <h2>Two SKUs, built for different levels of play.</h2>
+          </div>
+          <span class="tag">Sample specs — placeholder data</span>
+        </div>
+
+        <div class="grid-2">
+
+          <!-- SKU 1 -->
+          <article class="card stack" style="gap: 20px;" data-od-id="sku-tournament">
+            <div class="ph-img square" role="img" aria-label="Product photo placeholder">[ Product photo · Tournament Pro ]</div>
+            <div>
+              <h3>Tournament Pro — Goose Feather</h3>
+              <p class="meta" style="margin-top: 4px;">SKU-001</p>
+            </div>
+            <div>
+              <div class="spec-row"><span class="label">Feather type</span><span class="value">Goose (sample)</span></div>
+              <div class="spec-row"><span class="label">Speed rating</span><span class="value num">77 (sample)</span></div>
+              <div class="spec-row"><span class="label">Pack size</span><span class="value">Tube of 12 (sample)</span></div>
+              <div class="spec-row"><span class="label">Best for</span><span class="value">Competitive match play</span></div>
+              <div class="spec-row"><span class="label">Price</span><span class="value num">$— / tube</span></div>
+            </div>
+            <button class="btn btn-secondary" style="align-self: flex-start;" onclick="scrollToSection('contact')">Inquire to order</button>
+          </article>
+
+          <!-- SKU 2 -->
+          <article class="card stack" style="gap: 20px;" data-od-id="sku-training">
+            <div class="ph-img square" role="img" aria-label="Product photo placeholder">[ Product photo · Club Training ]</div>
+            <div>
+              <h3>Club Training — Duck Feather</h3>
+              <p class="meta" style="margin-top: 4px;">SKU-002</p>
+            </div>
+            <div>
+              <div class="spec-row"><span class="label">Feather type</span><span class="value">Duck (sample)</span></div>
+              <div class="spec-row"><span class="label">Speed rating</span><span class="value num">76 (sample)</span></div>
+              <div class="spec-row"><span class="label">Pack size</span><span class="value">Tube of 12 (sample)</span></div>
+              <div class="spec-row"><span class="label">Best for</span><span class="value">Practice &amp; club sessions</span></div>
+              <div class="spec-row"><span class="label">Price</span><span class="value num">$— / tube</span></div>
+            </div>
+            <button class="btn btn-secondary" style="align-self: flex-start;" onclick="scrollToSection('contact')">Inquire to order</button>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Feather -->
+    <section class="section" id="why-feather" data-od-id="why-feather">
+      <div class="container stack" style="gap: 56px;">
+        <div style="max-width: 36ch;">
+          <p class="eyebrow" style="color: var(--muted);">Why Feather</p>
+          <h2>What to expect when you order from us.</h2>
+        </div>
+        <div class="grid-3">
+          <div class="feature card-flat">
+            <div class="feature-mark">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            </div>
+            <h3>Hand-graded feathers</h3>
+            <p>Every shuttlecock is checked for shape and weight consistency before it ships.</p>
+          </div>
+          <div class="feature card-flat">
+            <div class="feature-mark">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h13M12 5l7 7-7 7"/></svg>
+            </div>
+            <h3>Direct from us to you</h3>
+            <p>No middleman markup — order by phone, email, or WeChat and we confirm details directly.</p>
+          </div>
+          <div class="feature card-flat">
+            <div class="feature-mark">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h10M4 17h16"/></svg>
+            </div>
+            <h3>Club &amp; bulk pricing</h3>
+            <p>Ordering for a team or club? Ask us about volume pricing when you get in touch.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact" data-od-id="contact">
+      <div class="container stack" style="gap: 40px;">
+        <div style="text-align: center; max-width: 42ch; margin: 0 auto;">
+          <p class="eyebrow" style="color: var(--muted);">Contact to Order</p>
+          <h2>Tell us the SKU and quantity — we'll take it from there.</h2>
+          <p class="lead" style="margin: 12px auto 0;">Reach us by phone, email, or WeChat. Please mention the product name and quantity you'd like.</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card contact-card" data-od-id="contact-phone">
+            <div class="channel-mark">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg>
+            </div>
+            <h3>Call us</h3>
+            <p class="value" id="phone-value">[ +1 555 0100 ]</p>
+            <div class="row" style="justify-content: center; gap: var(--gap-sm);">
+              <a class="btn btn-dark" href="tel:+15550100">Call now</a>
+              <button class="btn btn-secondary" onclick="copyValue('phone-value','copy-note-phone')">Copy</button>
+            </div>
+            <p class="copy-note" id="copy-note-phone"></p>
+          </div>
+
+          <div class="card contact-card" data-od-id="contact-email">
+            <div class="channel-mark">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h16v14H4z"/><path d="M4 6l8 7 8-7"/></svg>
+            </div>
+            <h3>Email us</h3>
+            <p class="value" id="email-value">[ orders@feather-shop.com ]</p>
+            <div class="row" style="justify-content: center; gap: var(--gap-sm);">
+              <a class="btn btn-dark" href="mailto:orders@feather-shop.com">Email now</a>
+              <button class="btn btn-secondary" onclick="copyValue('email-value','copy-note-email')">Copy</button>
+            </div>
+            <p class="copy-note" id="copy-note-email"></p>
+          </div>
+
+          <div class="card contact-card" data-od-id="contact-wechat">
+            <div class="channel-mark">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="10" r="6"/><path d="M15 14c3.3 0 6 2.1 6 4.6 0 1-.5 1.9-1.4 2.6l.4 1.8-2-1a7.4 7.4 0 0 1-3 .6"/></svg>
+            </div>
+            <h3>WeChat</h3>
+            <div class="ph-img square" style="max-width: 140px; margin: 0 auto;" role="img" aria-label="WeChat QR code placeholder">[ QR code placeholder ]</div>
+            <p class="value" style="margin-bottom: 0;">[ WeChat ID: feather_official ]</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="pagefoot" data-od-id="footer">
+    <div class="container row-between">
+      <span>© FEATHER 2026</span>
+      <span class="meta">Premium shuttlecocks · [ +1 555 0100 ] · [ orders@feather-shop.com ]</span>
+    </div>
+  </footer>
+
+  <script>
+    function scrollToSection(id) {
+      window.scrollTo({ top: document.getElementById(id).offsetTop - 70, behavior: 'smooth' });
+    }
+
+    function copyValue(sourceId, noteId) {
+      var raw = document.getElementById(sourceId).textContent.trim();
+      var clean = raw.replace(/^\[\s*/, '').replace(/\s*\]$/, '');
+      var note = document.getElementById(noteId);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(clean).then(function () {
+          note.textContent = 'Copied to clipboard';
+          setTimeout(function () { note.textContent = ''; }, 1800);
+        }).catch(function () {
+          note.textContent = clean;
+        });
+      } else {
+        note.textContent = clean;
+      }
+    }
+  </script>
+</body>
+</html>

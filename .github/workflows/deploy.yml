@@ -1,0 +1,79 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies (06-product-details-section)
+        working-directory: 01-HTML/06-product-details-section
+        run: npm ci
+
+      - name: Build 06-product-details-section
+        working-directory: 01-HTML/06-product-details-section
+        run: npx vite build
+
+      - name: Assemble site
+        run: |
+          set -e
+          mkdir -p _site
+
+          # Static (no-build) challenge projects: copy only the published files.
+          for dir in 01-HTML/01-testimonial-card 01-HTML/02-blog-card 01-HTML/03-profile-card 01-HTML/04-navbar-component 01-HTML/05-footer-multi-column 02-CSS/404-section; do
+            dest="_site/$dir"
+            mkdir -p "$dest"
+            cp -r "$dir/index.html" "$dest/"
+            [ -d "$dir/css" ] && cp -r "$dir/css" "$dest/"
+            [ -d "$dir/js" ] && cp -r "$dir/js" "$dest/"
+            [ -d "$dir/img" ] && cp -r "$dir/img" "$dest/"
+          done
+
+          # Vite-built project: copy the build output.
+          mkdir -p _site/01-HTML/06-product-details-section
+          cp -r 01-HTML/06-product-details-section/dist/. _site/01-HTML/06-product-details-section/
+
+          # Feather landing page.
+          mkdir -p _site/feather
+          cp -r feather/. _site/feather/
+
+      - name: Upload production-ready build files
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-files
+          path: ./_site
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: production-files
+          path: ./_site
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
