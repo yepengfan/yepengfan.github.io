@@ -1,0 +1,169 @@
+/* Put any custom CSS styles here.  */
+/* Be sure to delete the <style> tag in index.html if you want to use this stylesheet. */
+body {
+  margin: 0 auto;
+  font-family: "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+  min-height: 100vh;
+  background-image: url("../img/abstract-background.jpg");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+section.container {
+  max-width: 375px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 12px;
+}
+
+section > span {
+  display: block;
+  text-align: left;
+  width: 100%;
+  color: #4338ca;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+section > h1 {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 40px;
+  margin-bottom: 20px;
+}
+
+section > p {
+  justify-self: flex-start;
+  width: 100%;
+  font-weight: 400px;
+  font-size: 18px;
+  line-height: 28px;
+  margin-bottom: 32px;
+}
+
+section > button {
+  padding: 12px 20px;
+  width: 100%;
+  color: white;
+  border-radius: var(--rounded, 4px);
+  background: var(--colors-indigo-700, #4338ca);
+
+  /* shadow / shadow */
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1),
+    0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+}
+
+.credits {
+  color: #777;
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  font-size: 11px;
+  text-align: center;
+}
+
+.credits a {
+  color: #000;
+  font-weight: bold;
+}
+
+@media (min-width: 376px) {
+  section.container {
+    max-width: 768px;
+    padding: 64px 16px;
+  }
+
+  section > span {
+    color: var(--Text-brand, var(--colors-indigo-700, #4338ca));
+
+    /* text-base-16/semibold */
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 150% */
+    margin-bottom: 12px;
+  }
+
+  section > h1 {
+    color: var(--Text-primary, var(--colors-neutral-900, #171717));
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 48px;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
+  section > p {
+    color: var(--Text-secondary, var(--colors-neutral-600, #525252));
+
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px; /* 140% */
+    margin-bottom: 64px;
+  }
+
+  section > button {
+    width: auto;
+    align-self: flex-start;
+  }
+}
+
+@media (min-width: 769px) {
+  section.container {
+    max-width: 1440px;
+    padding: 96px;
+  }
+
+  section > span {
+    color: var(--Text-brand, var(--colors-indigo-700, #4338ca));
+
+    /* text-base-16/semibold */
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 150% */
+    margin-bottom: 12px;
+  }
+
+  section > h1 {
+    color: var(--Text-primary, var(--colors-neutral-900, #171717));
+
+    /* text-6xl-60/semibold */
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 60px; /* 100% */
+    margin-bottom: 24px;
+  }
+
+  section > p {
+    color: var(--Text-secondary, var(--colors-neutral-600, #525252));
+
+    /* text-xl-20/normal */
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px; /* 140% */
+    margin-bottom: 64px;
+  }
+
+  section > button {
+    padding: 16px 24px;
+  }
+}
